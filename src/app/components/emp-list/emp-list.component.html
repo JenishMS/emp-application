@@ -1,0 +1,58 @@
+<div class="employer-list-container">
+    <h3 class="text-center">Employer List</h3>
+    <div class="header d-flex justify-content-end mt-4">
+        <div class="col-md-4 d-flex gap-2">
+            <input type="search" placeholder="Search" class="form-control" [(ngModel)]="searchText"
+                (search)="onSearch()">
+            <button class="btn btn-primary" (click)="onSearch()">Search</button>
+        </div>
+    </div>
+    <div class="mt-3 table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>S No</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Mobile</th>
+                    <th>DOB</th>
+                    <th>Address</th>
+                    <th>Pincode</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr
+                    *ngFor="let employer of employerList | paginate: { itemsPerPage: perPage, currentPage: page };let i = index">
+                    <th>{{(i + 1)}}</th>
+                    <th>{{employer.name}}</th>
+                    <th>{{employer.age}}</th>
+                    <th>{{employer.mobile}}</th>
+                    <th>{{employer.dob}}</th>
+                    <th>{{employer.address1 + employer.address2}}</th>
+                    <th>{{employer.pincode}}</th>
+                    <th>
+                        <div class="btn btn-sm btn-primary" [routerLink]="'/update/'+employer.employerId">Edit</div>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row justify-content-between">
+        <div class="col-sm-3 col-md-3 d-flex gap-2">
+            <span class=" per-page-dropdown mt-2">
+                Item Per page
+            </span>
+            <select [(ngModel)]="perPage" class="form-control">
+                <option value="2">2</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="25">25</option>
+            </select>
+        </div>
+        <div class="col-sm-6 d-flex justify-content-end">
+            <pagination-controls (pageChange)="pageChanged($event)" [responsive]="true">
+            </pagination-controls>
+        </div>
+    </div>
+</div>
